@@ -67,7 +67,16 @@
   (loop (add-record (prompt-for-cd))
     (if (not (y-or-n-p "Another? [y/n]: ")) (return))))
 
-;; querying functions
+;; querying functions, for example: 
+;;   (select (where :artist "Dixie Chicks"))
+;;   (select (where :rating 10 :ripped nil))
+(defun where (&key title artist rating (ripped nil ripped-p))
+  #'(lambda (cd)
+      (and
+        (if title    (equal (getf cd :title)  title)  t)
+	(if artist   (equal (getf cd :artist) artist) t)
+	(if rating   (equal (getf cd :rating) rating) t)
+	(if ripped-p (equal (getf cd :ripped) ripped) t))))
 
 (defun select (selector-fn)
   (remove-if-not selector-fn *db*))
