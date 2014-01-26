@@ -61,11 +61,11 @@
     (or (parse-integer (prompt-read "Rating") :junk-allowed t) 0)
     ;; Y-OR-N-P will reprompt the user if they enter something that doesn't
     ;;  start with y, Y, n, or N
-    (y-or-n-p "Ripped [y/n]")))
+    (y-or-n-p "Ripped? ")))
 
 (defun add-cds ()
   (loop (add-record (prompt-for-cd))
-    (if (not (y-or-n-p "Another? [y/n]: ")) (return))))
+    (if (not (y-or-n-p "Another? ")) (return))))
 
 ;; querying functions, for example: 
 ;;   (select (where :artist "Dixie Chicks"))
